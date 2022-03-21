@@ -65,13 +65,14 @@
     }
 
     table {
-        border-top: 1px solid #000000;
+        border: 1px solid #000000;
         color: #000000;
         border-collapse: collapse;
+        width: 100%;
     }
 
     td {
-        border-bottom: 1px solid #000000;
+        border: 1px solid #000000;
         padding: 7px;
     }
 
@@ -100,72 +101,82 @@
 ."></textarea>
 
         <p>보상 : </p>
-        <table width=100% border=1></table>
+        <div class=table>
+        </div>
 
-        <br>
         <button class=buttton onclick="alert('아직 완성 안했는데슝');">분배</button>
 
     </div>
     <hr width=95% />
     <p class=copyright>© 2022 Dark Tornado, All rights reserved.</p>
     <script>
-        var itemList = [
-            //소비 아이템
-            "수상한 에디셔널 큐브",
-            "반짝이는 빨간 별 물약",
-            "반짝이는 파란 별 물약",
-            "반짝이는 황금 별 물약",
-            "추가 경험치 쿠폰 50% 교환권",
-            "소형 경험 축적의 비약",
-            "강력한 환생의 불꽃",
-            "영원한 환생의 불꽃",
-            "검은 환생의 불꽃",
-            "놀라운 긍정의 혼돈 주문서 60%",
-            "악세서리 스크롤 교환 주문서",
-            //기타 아이템
-            "꺼지지 않는 불꽃",
-            "영원히 꺼지지 않는 불꽃",
-            "영원히 꺼지지 않는 검은 불꽃",
-            //앱솔&아케인
-            "앱솔랩스 무기 선택 상자",
-            "앱솔랩스 방어구 선택 상자",
-            "아케인셰이드 무기 선택 상자",
-            "아케인셰이드 방어구 선택 상자",
-            //보장&여명
-            "도미네이터 팬던트",
-            "파풀라투스 마크",
-            "가디언 엔젤 링",
-            "트와일라이트 마크",
-            "에스텔라 이어링",
-            "데이브레이크 팬던트",
-            //칠흑
-            "루즈 컨트롤 머신 마크",
-            "손상된 블랙 하트",
-            "마력이 깃든 안대",
-            "루인 포스실드",
-            "몽환의 벨트",
-            "저주받은 마도서 선택 상자",
-            "거대한 공포",
-            "고통의 근원",
-            "커맨더 포스 이어링",
-            "창세의 뱃지",
-            "미트라의 분노 선택 상자",
-            //안드로이드
-            "스우로이드",
-            "데미안로이드",
-            "루시드로이드"
-        ];
+        var itemList = {
+            "공통": [
+                "수상한 에디셔널 큐브",
+                "반짝이는 빨간 별 물약",
+                "반짝이는 파란 별 물약",
+                "반짝이는 황금 별 물약",
+                "추가 경험치 쿠폰 50% 교환권",
+                "소형 경험 축적의 비약",
+                "강력한 환생의 불꽃",
+                "영원한 환생의 불꽃",
+                "검은 환생의 불꽃",
+                "놀라운 긍정의 혼돈 주문서 60%",
+                "악세서리 스크롤 교환 주문서",
+                "꺼지지 않는 불꽃",
+                "영원히 꺼지지 않는 불꽃",
+                "영원히 꺼지지 않는 검은 불꽃"
+            ],
+            "보스 장신구": [
+                "도미네이터 팬던트",
+                "파풀라투스 마크",
+                "가디언 엔젤 링"
+            ],
+            "무기 상자": [
+                "앱솔랩스 무기 선택 상자",
+                "앱솔랩스 방어구 선택 상자",
+                "아케인셰이드 무기 선택 상자",
+                "아케인셰이드 방어구 선택 상자"
+            ],
+            "스우 & 데미안": [
+                "루즈 컨트롤 머신 마크",
+                "손상된 블랙 하트",
+                "마력이 깃든 안대",
+                "루인 포스실드",
+                "스우로이드",
+                "데미안로이드"
+            ],
+            "루시드 & 윌": [
+                "트와일라이트 마크",
+                "몽환의 벨트",
+                "저주받은 마도서 선택 상자",
+                "루시드로이드"
+            ],
+            "진 힐라 & 듄켈 & 더스크 & 세렌": [
+                "에스텔라 이어링",
+                "데이브레이크 팬던트",
+                "거대한 공포",
+                "고통의 근원",
+                "커맨더 포스 이어링",
+                "미트라의 분노 선택 상자"
+            ],
+            "검은 마법사": [
+                "창세의 뱃지"
+            ]
+        };
         (function() {
-            var table = document.querySelector("table");
-            var src = "";
-            for (var n = 0; n < itemList.length; n++) {
-                src += "<tr><td class=title colspan=2>" + itemList[n] + "</td></tr>" +
-                    "<tr>" +
-                    "<td width=30%><input type='number' placeholder='개수'></td>" +
-                    "<td><input type='number' placeholder='가격'></td>" +
-                    "</tr>";
+            var table = document.querySelector("div.table");
+            for (var type in itemList) {
+                var src = "<details><summary>" + type + "</summary><table>";
+                for (var n = 0; n < itemList[type].length; n++) {
+                    src += "<tr><td class=title colspan=2>" + itemList[type][n] + "</td></tr>" +
+                        "<tr>" +
+                        "<td width=30%><input type='number' placeholder='개수'></td>" +
+                        "<td><input type='number' placeholder='가격'></td>" +
+                        "</tr>";
+                }
+                table.innerHTML += src + "</table></details><br>";
             }
-            table.innerHTML = src;
         })();
     </script>
 </body>
