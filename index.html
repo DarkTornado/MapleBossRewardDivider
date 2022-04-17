@@ -104,7 +104,10 @@
         <div class=table>
         </div>
 
-        <button class=buttton onclick="alert('아직 완성 안했는데슝');">분배</button>
+        <button class=buttton onclick="calc();">분배</button>
+		
+		<table class=output>
+		</table>
 
     </div>
     <hr width=95% />
@@ -171,13 +174,35 @@
                 for (var n = 0; n < itemList[type].length; n++) {
                     src += "<tr><td class=title colspan=2>" + itemList[type][n] + "</td></tr>" +
                         "<tr>" +
-                        "<td width=30%><input type='number' placeholder='개수'></td>" +
-                        "<td><input type='number' placeholder='가격'></td>" +
+                        "<td width=30%><input class=count type='number' placeholder='개수'></td>" +
+                        "<td><input class=price type='number' placeholder='가격'></td>" +
                         "</tr>";
                 }
                 table.innerHTML += src + "</table></details><br>";
             }
         })();
+		
+		
+		function calc() {
+            var names = document.querySelectorAll("td.title");
+            var counts = document.querySelectorAll("input.count");
+            var prices = document.querySelectorAll("input.price");
+			var data = [];
+			var sum = 0;
+			for(var n=0;n<counts.length;n++) {
+				var count = Number(counts.item(n).value);
+				if(count == 0) continue;
+				var name = names.item(n).innerHTML;
+				var price = Number(prices.item(n).value);				
+				sum += count * price;
+				data.push(name + " " + count +"개, "+price+"메소");
+			}
+			alert(data.join("\n"));
+		}
+		
+		function devide(price, data) {
+		
+		}alert(decodeURI(location.pathname.slice(1)))
     </script>
 </body>
 
